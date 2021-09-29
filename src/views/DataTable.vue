@@ -7,6 +7,12 @@
     </label>
   </div>
   <TableBase :columns="columns" :entries="paginateEntries" />
+  <div>
+    <div>
+      Show {{ showInfo.from }} to {{ showInfo.to }} of
+      {{ entries.length }} entries
+    </div>
+  </div>
 </template>
 
 <script>
@@ -47,6 +53,11 @@ export default {
       currentEntries: 10,
       filteredEntries: [],
       pageNumber: 1,
+      showInfo: {
+        from: 0,
+        to: 0,
+        // of: this.entries.length,
+      },
     };
   },
   created() {
@@ -58,8 +69,18 @@ export default {
     paginateEntries() {
       let from = (this.pageNumber - 1) * this.currentEntries;
       let to = from + this.currentEntries;
+
+      // this.showInfo.from = from;
+      // this.showInfo.to = to;
+
       return this.entries.slice(from, to);
     },
+    // showInfo() {
+
+    //   return {
+    //     of: this.entries.length,
+    //   };
+    // },
   },
   methods: {
     async getAllEmployees() {
